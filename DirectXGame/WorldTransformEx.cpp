@@ -18,6 +18,9 @@ void WorldTransform::UpdateMatrix() {
 	// スケーリング、回転、平行移動の合成
 	matWorld_ = matScale * matRot * matTrans;
 
+
+	
+
 	// 定数バッファに転送する
 	TransferMatrix();
 	

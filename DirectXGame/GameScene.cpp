@@ -6,8 +6,11 @@ using namespace KamataEngine;
 GameScene::~GameScene() {
 	// 3Dモデルデータの解放
 	delete modelParticle_;
-	// パーティクル解放
-	delete particle_;
+	for (Particle* particle_ : particles_) {
+		// パーティクル解放
+		delete particle_;
+	}
+	particles_.clear();
 }
 
 void GameScene::Initialize() {
@@ -22,15 +25,24 @@ void GameScene::Initialize() {
 
 	//---パーティクル----
 
-	/*生成*/
-	particle_ = new Particle();
-	/*初期化*/
-	particle_->Initialize(modelParticle_);
+	for (int i = 0; i < 150; i++) {
+
+		/*生成*/
+		Particle* particle_ = new Particle();
+		/*位置*/
+		Vector3 position = {0.5f * i, 0.0f, 0.0f};
+		/*初期化*/
+		particle_->Initialize(modelParticle_, position);
+		// リストに追加
+		particles_.push_back(particle_);
+	}
 }
 
 void GameScene::Update() {
-	// パーティクル
-	particle_->Update();
+	for (Particle* particle_ : particles_) {
+		// パーティクル
+		particle_->Update();
+	}
 }
 
 void GameScene::Draw() {
@@ -58,9 +70,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
 
-	/*パーティクル*/
-	particle_->Draw(camera_);
-
+	for (Particle* particle_ : particles_) {
+		/*パーティクル*/
+		particle_->Draw(camera_);
+	}
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
