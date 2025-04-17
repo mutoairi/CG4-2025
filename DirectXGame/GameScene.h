@@ -1,9 +1,6 @@
 #pragma once
+#include "Particle.h"
 #include <KamataEngine.h>
-#include"Particle.h"
-
-
-
 
 class GameScene {
 public:
@@ -17,12 +14,10 @@ private:
 	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Audio* audio_ = nullptr;
 
-	//パーティクル3Dモデルデータ
+	// パーティクル3Dモデルデータ
 	KamataEngine::Model* modelParticle_ = nullptr;
-	//カメラ
+	// カメラ
 	KamataEngine::Camera camera_;
-	//パーティクル
+	// パーティクル
 	Particle* particle_ = nullptr;
-
-	
 };

@@ -1,12 +1,12 @@
 #include "GameScene.h"
-#include<cassert>
+#include <cassert>
 
 using namespace KamataEngine;
 
 GameScene::~GameScene() {
-	//3Dモデルデータの解放
+	// 3Dモデルデータの解放
 	delete modelParticle_;
-	//パーティクル解放
+	// パーティクル解放
 	delete particle_;
 }
 
@@ -17,21 +17,19 @@ void GameScene::Initialize() {
 
 	// 3Dモデルの生成
 	modelParticle_ = Model::CreateSphere(4, 4);
-	//カメラの初期化
+	// カメラの初期化
 	camera_.Initialize();
-	 
+
 	//---パーティクル----
 
 	/*生成*/
 	particle_ = new Particle();
 	/*初期化*/
 	particle_->Initialize(modelParticle_);
-	
-
 }
 
 void GameScene::Update() {
-	//パーティクル
+	// パーティクル
 	particle_->Update();
 }
 
@@ -59,7 +57,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
-	
+
 	/*パーティクル*/
 	particle_->Draw(camera_);
 
