@@ -10,6 +10,8 @@ public:
 	// 描画
 	void Draw(KamataEngine::Camera& camera);
 
+	bool GetDeathFlag() { return isFinished_; }
+
 private:
 	// ワールド変換データ
 	KamataEngine::WorldTransform worldTransform_;
@@ -21,4 +23,10 @@ private:
 	KamataEngine::Vector4 color_;
 	// 移動量
 	KamataEngine::Vector3 velocity_;
+	//終了フラグ
+	bool isFinished_ = false;
+	//経過時間カウント
+	float counter_ = 0.0f;
+	//存続時間
+	const float kDuration = 1.0f;
 };

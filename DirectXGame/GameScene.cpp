@@ -54,6 +54,14 @@ void GameScene::Update() {
 		// パーティクル
 		particle_->Update();
 	}
+	//終了フラグのたったパーティクルを削除
+	particles_.remove_if([](Particle* particle) {
+		if (particle->GetDeathFlag()) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});
 }
 
 void GameScene::Draw() {
