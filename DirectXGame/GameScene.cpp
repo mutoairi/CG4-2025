@@ -1,7 +1,13 @@
 #include "GameScene.h"
 #include <cassert>
+#include <random>
 
 using namespace KamataEngine;
+using namespace MathUtility;
+
+std::random_device seedGenerator;
+std::mt19937 randomEngine(seedGenerator());
+std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
 	// 3Dモデルデータの解放
@@ -30,9 +36,14 @@ void GameScene::Initialize() {
 		/*生成*/
 		Particle* particle_ = new Particle();
 		/*位置*/
-		Vector3 position = {0.5f * i, 0.0f, 0.0f};
+		Vector3 position = {0.0f, 0.0f, 0.0f};
+		/*移動量*/
+		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
+		Normalize(velocity);
+		velocity *= distrubution(randomEngine);
+		velocity *= 1.0f;
 		/*初期化*/
-		particle_->Initialize(modelParticle_, position);
+		particle_->Initialize(modelParticle_, position, velocity);
 		// リストに追加
 		particles_.push_back(particle_);
 	}
