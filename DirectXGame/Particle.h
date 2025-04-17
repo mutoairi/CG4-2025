@@ -15,4 +15,8 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	// モデル
 	KamataEngine::Model* model_ = nullptr;
+	//色変更オブジェクト
+	KamataEngine::ObjectColor objectColor_;
+	//色の数値
+	KamataEngine::Vector4 color_;
 };
