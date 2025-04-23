@@ -29,15 +29,15 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_.Initialize();
 
-	//乱数の初期化
-	srand((unsigned) time(NULL));
+	// 乱数の初期化
+	srand((unsigned)time(NULL));
 }
 
 void GameScene::Update() {
 
 	//---パーティクル----
 
-	//確率で発生
+	// 確率で発生
 	if (rand() % 20 == 0) {
 
 		/*位置*/
@@ -50,7 +50,7 @@ void GameScene::Update() {
 		// パーティクル
 		particle_->Update();
 	}
-	//終了フラグのたったパーティクルを削除
+	// 終了フラグのたったパーティクルを削除
 	particles_.remove_if([](Particle* particle) {
 		if (particle->GetDeathFlag()) {
 			delete particle;
@@ -126,6 +126,3 @@ void GameScene::ParticleBorn(Vector3 position1) {
 		particles_.push_back(particle_);
 	}
 }
-
-	
-
