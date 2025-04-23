@@ -8,6 +8,8 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
+	/*パーティクル発生関数*/
+	void ParticleBorn(KamataEngine::Vector3 position);
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
@@ -20,4 +22,5 @@ private:
 	KamataEngine::Camera camera_;
 	// パーティクル
 	std::list<Particle*> particles_;
+	
 };

@@ -9,6 +9,7 @@ public:
 	void Update();
 	// 描画
 	void Draw(KamataEngine::Camera& camera);
+	
 
 	bool GetDeathFlag() { return isFinished_; }
 
