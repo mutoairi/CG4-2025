@@ -10,13 +10,16 @@ std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
+	
 	// 3Dモデルデータの解放
 	delete modelParticle_;
+	delete modelEffect_;
 	for (Particle* particle_ : particles_) {
 		// パーティクル解放
 		delete particle_;
 	}
 	particles_.clear();
+	delete effect;
 }
 
 void GameScene::Initialize() {
@@ -26,6 +29,12 @@ void GameScene::Initialize() {
 
 	// 3Dモデルの生成
 	modelParticle_ = Model::CreateSphere(4, 4);
+
+	modelEffect_ = Model::CreateFromOBJ("efect", true);
+
+	//エフェクトの初期化
+	effect = new Effect();
+	effect->Initialize(modelEffect_);
 	// カメラの初期化
 	camera_.Initialize();
 
@@ -37,27 +46,30 @@ void GameScene::Update() {
 
 	//---パーティクル----
 
-	// 確率で発生
-	if (rand() % 20 == 0) {
+	//// 確率で発生
+	//if (rand() % 20 == 0) {
 
-		/*位置*/
-		Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
+	//	/*位置*/
+	//	Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
 
-		/*パーティクルの生成*/
-		ParticleBorn(position);
-	}
-	for (Particle* particle_ : particles_) {
-		// パーティクル
-		particle_->Update();
-	}
-	// 終了フラグのたったパーティクルを削除
-	particles_.remove_if([](Particle* particle) {
-		if (particle->GetDeathFlag()) {
-			delete particle;
-			return true;
-		}
-		return false;
-	});
+	//	/*パーティクルの生成*/
+	//	ParticleBorn(position);
+	//}
+	//for (Particle* particle_ : particles_) {
+	//	// パーティクル
+	//	particle_->Update();
+	//}
+	//// 終了フラグのたったパーティクルを削除
+	//particles_.remove_if([](Particle* particle) {
+	//	if (particle->GetDeathFlag()) {
+	//		delete particle;
+	//		return true;
+	//	}
+	//	return false;
+	//});
+
+	//Effect
+	effect->Update();
 }
 
 void GameScene::Draw() {
@@ -85,10 +97,11 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
 
-	for (Particle* particle_ : particles_) {
-		/*パーティクル*/
-		particle_->Draw(camera_);
-	}
+	//for (Particle* particle_ : particles_) {
+	//	/*パーティクル*/
+	//	particle_->Draw(camera_);
+	//}
+	effect->Draw(camera_);
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理

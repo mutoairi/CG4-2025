@@ -8,6 +8,8 @@ void Effect::Initialize(KamataEngine::Model* model) {
 	wordTransform_.Initialize();
 }
 
-void Effect::Update() { wordTransform_.UpdateMatrix(); }
+void Effect::Update() { 
+	wordTransform_.rotation_ = {0.0f,100.0f, 0.0f};
+	wordTransform_.UpdateMatrix(); }
 
-void Effect::Draw() {}
+void Effect::Draw(KamataEngine::Camera& camera) { model_->Draw(wordTransform_, camera); }

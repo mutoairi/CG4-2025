@@ -4,7 +4,7 @@ class Effect {
 public:
 	void Initialize(KamataEngine::Model* model);
 	void Update();
-	void Draw();
+	void Draw(KamataEngine::Camera&);
 
 private:
 	KamataEngine::WorldTransform wordTransform_;
