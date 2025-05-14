@@ -1,13 +1,13 @@
 #include "GameScene.h"
 #include <cassert>
-#include <random>
+//#include <random>
 
 using namespace KamataEngine;
 using namespace MathUtility;
 
-std::random_device seedGenerator;
-std::mt19937 randomEngine(seedGenerator());
-std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
+//std::random_device seedGenerator;
+//std::mt19937 randomEngine(seedGenerator());
+//std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
 
@@ -122,20 +122,20 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::ParticleBorn(Vector3 position1) {
-	for (int i = 0; i < 150; i++) {
-
-		/*生成*/
-		Particle* particle_ = new Particle();
-
-		/*移動量*/
-		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
-		Normalize(velocity);
-		velocity *= distrubution(randomEngine);
-		velocity *= 1.0f;
-		/*初期化*/
-		particle_->Initialize(modelParticle_, position1, velocity);
-		// リストに追加
-		particles_.push_back(particle_);
-	}
-}
+//void GameScene::ParticleBorn(Vector3 position1) {
+//	for (int i = 0; i < 150; i++) {
+//
+//		/*生成*/
+//		Particle* particle_ = new Particle();
+//
+//		/*移動量*/
+//		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
+//		Normalize(velocity);
+//		velocity *= distrubution(randomEngine);
+//		velocity *= 1.0f;
+//		/*初期化*/
+//		particle_->Initialize(modelParticle_, position1, velocity);
+//		// リストに追加
+//		particles_.push_back(particle_);
+//	}
+//}
