@@ -8,10 +8,8 @@ using namespace MathUtility;
 std::random_device seedGenerator;
 std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
-std::uniform_real_distribution<float> scaleDistrubution(0.0f, 2.0f);
+std::uniform_real_distribution<float> scaleDistrubution(0.0f, 5.0f);
 std::uniform_real_distribution<float> rotationDistrubution(0.0f, 3.14f);
-
-
 
 GameScene::~GameScene() {
 
@@ -23,7 +21,10 @@ GameScene::~GameScene() {
 		delete particle_;
 	}
 	particles_.clear();
-	delete effect;
+	for (Effect* effect : effects_) {
+		delete effect;
+	}
+	effects_.clear();
 }
 
 void GameScene::Initialize() {
@@ -36,13 +37,17 @@ void GameScene::Initialize() {
 
 	modelEffect_ = Model::CreateFromOBJ("efect", true);
 
-	// エフェクトの初期化
-	Vector3 scale;
-	scale = {1.0f, scaleDistrubution(randomEngine)*10.0f , 1.0f};
-	Vector3 rotation;
-	rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)*10.0f };
-	effect = new Effect();
-	effect->Initialize(modelEffect_,scale,rotation);
+	for (int i = 0; i < 10; i++) {
+		Effect* effect = new Effect();
+		// エフェクトの初期化
+		Vector3 scale;
+		scale = {0.3f, scaleDistrubution(randomEngine), 1.0f};
+		Vector3 rotation;
+		rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)};
+
+		effect->Initialize(modelEffect_, scale, rotation);
+		effects_.push_back(effect);
+	}
 	// カメラの初期化
 	camera_.Initialize();
 
@@ -77,7 +82,9 @@ void GameScene::Update() {
 	// });
 
 	// Effect
-	effect->Update();
+	for (Effect* effect : effects_) {
+		effect->Update();
+	}
 }
 
 void GameScene::Draw() {
@@ -109,7 +116,9 @@ void GameScene::Draw() {
 	//	/*パーティクル*/
 	//	particle_->Draw(camera_);
 	// }
-	effect->Draw(camera_);
+	for (Effect* effect : effects_) {
+		effect->Draw(camera_);
+	}
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
@@ -130,7 +139,7 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-//void GameScene::ParticleBorn(Vector3 position1) {
+// void GameScene::ParticleBorn(Vector3 position1) {
 //	for (int i = 0; i < 150; i++) {
 //
 //		/*生成*/
@@ -146,4 +155,4 @@ void GameScene::Draw() {
 //		// リストに追加
 //		particles_.push_back(particle_);
 //	}
-//}
+// }

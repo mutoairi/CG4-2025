@@ -27,5 +27,5 @@ private:
 	// パーティクル
 	std::list<Particle*> particles_;
 	// エフェクト
-	Effect* effect = nullptr;
+	std::list<Effect*> effects_;
 };
