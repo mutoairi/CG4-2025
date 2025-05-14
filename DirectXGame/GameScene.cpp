@@ -10,7 +10,7 @@ std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
-	
+
 	// 3Dモデルデータの解放
 	delete modelParticle_;
 	delete modelEffect_;
@@ -32,7 +32,7 @@ void GameScene::Initialize() {
 
 	modelEffect_ = Model::CreateFromOBJ("efect", true);
 
-	//エフェクトの初期化
+	// エフェクトの初期化
 	effect = new Effect();
 	effect->Initialize(modelEffect_);
 	// カメラの初期化
@@ -47,7 +47,7 @@ void GameScene::Update() {
 	//---パーティクル----
 
 	//// 確率で発生
-	//if (rand() % 20 == 0) {
+	// if (rand() % 20 == 0) {
 
 	//	/*位置*/
 	//	Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
@@ -55,20 +55,20 @@ void GameScene::Update() {
 	//	/*パーティクルの生成*/
 	//	ParticleBorn(position);
 	//}
-	//for (Particle* particle_ : particles_) {
+	// for (Particle* particle_ : particles_) {
 	//	// パーティクル
 	//	particle_->Update();
 	//}
 	//// 終了フラグのたったパーティクルを削除
-	//particles_.remove_if([](Particle* particle) {
+	// particles_.remove_if([](Particle* particle) {
 	//	if (particle->GetDeathFlag()) {
 	//		delete particle;
 	//		return true;
 	//	}
 	//	return false;
-	//});
+	// });
 
-	//Effect
+	// Effect
 	effect->Update();
 }
 
@@ -97,10 +97,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
 
-	//for (Particle* particle_ : particles_) {
+	// for (Particle* particle_ : particles_) {
 	//	/*パーティクル*/
 	//	particle_->Draw(camera_);
-	//}
+	// }
 	effect->Draw(camera_);
 	/// </summary>
 
