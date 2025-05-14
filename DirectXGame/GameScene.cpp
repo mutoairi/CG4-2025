@@ -1,13 +1,17 @@
 #include "GameScene.h"
 #include <cassert>
-//#include <random>
+#include <random>
 
 using namespace KamataEngine;
 using namespace MathUtility;
 
-//std::random_device seedGenerator;
-//std::mt19937 randomEngine(seedGenerator());
-//std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
+std::random_device seedGenerator;
+std::mt19937 randomEngine(seedGenerator());
+std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
+std::uniform_real_distribution<float> scaleDistrubution(0.0f, 2.0f);
+std::uniform_real_distribution<float> rotationDistrubution(0.0f, 3.14f);
+
+
 
 GameScene::~GameScene() {
 
@@ -33,8 +37,12 @@ void GameScene::Initialize() {
 	modelEffect_ = Model::CreateFromOBJ("efect", true);
 
 	// エフェクトの初期化
+	Vector3 scale;
+	scale = {1.0f, scaleDistrubution(randomEngine)*10.0f , 1.0f};
+	Vector3 rotation;
+	rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)*10.0f };
 	effect = new Effect();
-	effect->Initialize(modelEffect_);
+	effect->Initialize(modelEffect_,scale,rotation);
 	// カメラの初期化
 	camera_.Initialize();
 
