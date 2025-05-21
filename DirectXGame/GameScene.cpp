@@ -10,7 +10,7 @@ std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 std::uniform_real_distribution<float> scaleDistrubution(0.0f, 6.0f);
 std::uniform_real_distribution<float> rotationDistrubution(0.0f, 360.0f);
-std::uniform_real_distribution<float> colorDistrubution(0.0f, 7.0f);
+std::uniform_real_distribution<float> colorDistrubution(0.0f, 4.0f);
 
 GameScene::~GameScene() {
 
