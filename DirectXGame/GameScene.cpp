@@ -10,6 +10,7 @@ std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
 std::uniform_real_distribution<float> scaleDistrubution(0.0f, 6.0f);
 std::uniform_real_distribution<float> rotationDistrubution(0.0f, 360.0f);
+std::uniform_real_distribution<float> colorDistrubution(0.0f, 7.0f);
 
 GameScene::~GameScene() {
 
@@ -37,7 +38,6 @@ void GameScene::Initialize() {
 
 	modelEffect_ = Model::CreateFromOBJ("efect", true);
 
-	
 	// カメラの初期化
 	camera_.Initialize();
 
@@ -75,19 +75,24 @@ void GameScene::Update() {
 	if (rand() % 10 == 0) {
 		/*位置*/
 		Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
-		EfectBorn(position);
+		/*移動量*/
+		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
+		Normalize(velocity);
+		/*色*/
+		Vector4 color{colorDistrubution(randomEngine), colorDistrubution(randomEngine), colorDistrubution(randomEngine), 1.0f};
+
+		EfectBorn(position, velocity, color);
 	}
-		for (Effect* effect : effects_) {
-			effect->Update();
+	for (Effect* effect : effects_) {
+		effect->Update();
+	}
+	effects_.remove_if([](Effect* effect) {
+		if (effect->GetDeathFlag()) {
+			delete effect;
+			return true;
 		}
-	    effects_.remove_if([](Effect* effect) {
-			if (effect->GetDeathFlag()) {
-				delete effect;
-				return true;
-			}
-			return false;
-		 });
-	
+		return false;
+	});
 }
 
 void GameScene::Draw() {
@@ -142,8 +147,8 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::EfectBorn(KamataEngine::Vector3 position) {
-	for (int i = 0; i < 20; i++) {
+void GameScene::EfectBorn(KamataEngine::Vector3 position, Vector3 velocity, Vector4 color) {
+	for (int i = 0; i < 15; i++) {
 		Effect* effect = new Effect();
 		// エフェクトの初期化
 		Vector3 scale;
@@ -151,7 +156,7 @@ void GameScene::EfectBorn(KamataEngine::Vector3 position) {
 		Vector3 rotation;
 		rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)};
 
-		effect->Initialize(modelEffect_, scale, rotation,position);
+		effect->Initialize(modelEffect_, scale, rotation, position, velocity, color);
 		effects_.push_back(effect);
 	}
 }

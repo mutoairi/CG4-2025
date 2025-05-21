@@ -13,7 +13,7 @@ public:
 	/*パーティクル発生関数*/
 	void ParticleBorn(KamataEngine::Vector3 position);
 	/*エフェクト発生関数*/
-	void EfectBorn(KamataEngine::Vector3 position);
+	void EfectBorn(KamataEngine::Vector3 position, KamataEngine::Vector3 velocity, KamataEngine::Vector4 color);
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
