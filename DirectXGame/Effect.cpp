@@ -4,7 +4,7 @@
  using namespace KamataEngine;
  using namespace MathUtility;
 
-void Effect::Initialize(Model* model,Vector3 scale, Vector3 rotation) {
+void Effect::Initialize(Model* model,Vector3 scale, Vector3 rotation,Vector3 possition) {
 	assert(model);
 	model_ = model;
 	scale_ = scale;
@@ -14,6 +14,7 @@ void Effect::Initialize(Model* model,Vector3 scale, Vector3 rotation) {
 	wordTransform_.Initialize();
 	wordTransform_.scale_ = scale;
 	wordTransform_.rotation_ = rotation;
+	wordTransform_.translation_ = possition;
 }
 
 void Effect::Update() {
@@ -28,18 +29,14 @@ void Effect::Update() {
 		isFinished_ = true;
 	}
 	
-	wordTransform_.scale_.y -= 0.05f;
+	
 	
 	color.w = std::clamp(1.0f - count_ / kDuration, 0.0f, 1.0f);
 	objectColor.SetColor(color);
 	// 時間の割合（0.0 ～ 1.0）
-	float t = count_ / kDuration;
+	//float t = count_ / kDuration;
 
-	// スムーズステップ（ふわっと感）
-	float eased = t * t * (3 - 2 * t); // 0 → 1 の曲線
-	// スケールを徐々に小さく
-	float scaleFactor = std::clamp(1.0f - eased, 0.0f, 1.0f);
-	wordTransform_.scale_ = scale_ * scaleFactor; // ←初期スケール保持してね！
+	 // ←初期スケール保持してね！
 	wordTransform_.UpdateMatrix();
 }
 

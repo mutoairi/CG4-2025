@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Effect.h"
 #include "Particle.h"
@@ -11,6 +12,8 @@ public:
 	void Draw();
 	/*パーティクル発生関数*/
 	void ParticleBorn(KamataEngine::Vector3 position);
+	/*エフェクト発生関数*/
+	void EfectBorn(KamataEngine::Vector3 position);
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;

@@ -8,7 +8,7 @@ using namespace MathUtility;
 std::random_device seedGenerator;
 std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
-std::uniform_real_distribution<float> scaleDistrubution(0.0f, 5.0f);
+std::uniform_real_distribution<float> scaleDistrubution(0.0f, 6.0f);
 std::uniform_real_distribution<float> rotationDistrubution(0.0f, 360.0f);
 
 GameScene::~GameScene() {
@@ -37,17 +37,7 @@ void GameScene::Initialize() {
 
 	modelEffect_ = Model::CreateFromOBJ("efect", true);
 
-	for (int i = 0; i < 10; i++) {
-		Effect* effect = new Effect();
-		// エフェクトの初期化
-		Vector3 scale;
-		scale = {0.3f, scaleDistrubution(randomEngine), 1.0f};
-		Vector3 rotation;
-		rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)};
-
-		effect->Initialize(modelEffect_, scale, rotation);
-		effects_.push_back(effect);
-	}
+	
 	// カメラの初期化
 	camera_.Initialize();
 
@@ -82,9 +72,22 @@ void GameScene::Update() {
 	// });
 
 	// Effect
-	for (Effect* effect : effects_) {
-		effect->Update();
+	if (rand() % 10 == 0) {
+		/*位置*/
+		Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
+		EfectBorn(position);
 	}
+		for (Effect* effect : effects_) {
+			effect->Update();
+		}
+	    effects_.remove_if([](Effect* effect) {
+			if (effect->GetDeathFlag()) {
+				delete effect;
+				return true;
+			}
+			return false;
+		 });
+	
 }
 
 void GameScene::Draw() {
@@ -137,6 +140,20 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::EfectBorn(KamataEngine::Vector3 position) {
+	for (int i = 0; i < 20; i++) {
+		Effect* effect = new Effect();
+		// エフェクトの初期化
+		Vector3 scale;
+		scale = {0.2f, scaleDistrubution(randomEngine), 1.0f};
+		Vector3 rotation;
+		rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)};
+
+		effect->Initialize(modelEffect_, scale, rotation,position);
+		effects_.push_back(effect);
+	}
 }
 
 // void GameScene::ParticleBorn(Vector3 position1) {
