@@ -32,9 +32,8 @@ void Effect::Update() {
 
 	color_.w = std::clamp(1.0f - count_ / kDuration, 0.0f, 1.0f);
 	objectColor.SetColor(color_);
-	wordTransform_.translation_ += velocity_;
-	wordTransform_.rotation_.z += 0.1f;
-	wordTransform_.scale_ += {0.0f, 0.5f, 0.0f};
+	
+	wordTransform_.scale_ -= {0.0f, 0.01f, 0.0f};
 	// ←初期スケール保持してね！
 	wordTransform_.UpdateMatrix();
 }

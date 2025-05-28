@@ -7,10 +7,10 @@ using namespace MathUtility;
 
 std::random_device seedGenerator;
 std::mt19937 randomEngine(seedGenerator());
-std::uniform_real_distribution<float> distrubution(-1.0f, 1.0f);
-std::uniform_real_distribution<float> scaleDistrubution(0.0f, 6.0f);
+std::uniform_real_distribution<float> distrubution(0.0f, 5.0f);
+std::uniform_real_distribution<float> scaleDistrubution(0.0f, 3.0f);
 std::uniform_real_distribution<float> rotationDistrubution(0.0f, 360.0f);
-std::uniform_real_distribution<float> colorDistrubution(0.0f, 4.0f);
+std::uniform_real_distribution<float> colorDistrubution(0.0f, 2.0f);
 
 GameScene::~GameScene() {
 
@@ -70,29 +70,34 @@ void GameScene::Update() {
 	//	}
 	//	return false;
 	// });
+	
+	if (input_->TriggerKey(DIK_SPACE)) {
+		for (int i = 0; i < 3; i++) {
 
-	// Effect
-	if (rand() % 10 == 0) {
-		/*位置*/
-		Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
-		/*移動量*/
-		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
-		Normalize(velocity);
-		/*色*/
-		Vector4 color{colorDistrubution(randomEngine), colorDistrubution(randomEngine), colorDistrubution(randomEngine), 1.0f};
+			// Effect
 
-		EfectBorn(position, velocity, color);
-	}
-	for (Effect* effect : effects_) {
-		effect->Update();
-	}
-	effects_.remove_if([](Effect* effect) {
-		if (effect->GetDeathFlag()) {
-			delete effect;
-			return true;
+			/*位置*/
+			Vector3 position = {0.0f, 0.0f, 0.0f};
+			/*移動量*/
+			Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
+			Normalize(velocity);
+			/*色*/
+			Vector4 color{colorDistrubution(randomEngine), colorDistrubution(randomEngine), colorDistrubution(randomEngine), 1.0f};
+
+			EfectBorn(position, velocity, color);
 		}
-		return false;
-	});
+	}
+		for (Effect* effect : effects_) {
+			effect->Update();
+		}
+		effects_.remove_if([](Effect* effect) {
+			if (effect->GetDeathFlag()) {
+				delete effect;
+				return true;
+			}
+			return false;
+		});
+	
 }
 
 void GameScene::Draw() {
