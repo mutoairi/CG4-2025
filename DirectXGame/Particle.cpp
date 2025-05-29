@@ -5,7 +5,7 @@ using namespace MathUtility;
 
 void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	// NULLポインタチェック
-	assert(model);
+	//assert(model);
 	model_ = model;
 	velocity_ = velocity;
 
