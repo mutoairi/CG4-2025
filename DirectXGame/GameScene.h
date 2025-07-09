@@ -1,6 +1,7 @@
 
 #pragma once
 #include "Effect.h"
+#include "ModelProject.h"
 #include "Particle.h"
 #include <KamataEngine.h>
 
@@ -10,21 +11,15 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
-	/*パーティクル発生関数*/
-	void ParticleBorn(KamataEngine::Vector3 position);
-	/*エフェクト発生関数*/
-	void EfectBorn(KamataEngine::Vector3 position, KamataEngine::Vector3 velocity, KamataEngine::Vector4 color);
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
 	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Audio* audio_ = nullptr;
+	KamataEngine::WorldTransform worldTransform_;
 
-	// パーティクル3Dモデルデータ
-	KamataEngine::Model* modelParticle_ = nullptr;
-	// エフェクトの3Dデータ
-	KamataEngine::Model* modelEffect_ = nullptr;
-
+	int32_t texture_ = 0u;
+	KamataEngine::ModelProject* model_ = nullptr;
 	// カメラ
 	KamataEngine::Camera camera_;
 	// パーティクル

@@ -14,9 +14,6 @@ std::uniform_real_distribution<float> colorDistrubution(0.0f, 4.0f);
 
 GameScene::~GameScene() {
 
-	// 3Dモデルデータの解放
-	delete modelParticle_;
-	delete modelEffect_;
 	for (Particle* particle_ : particles_) {
 		// パーティクル解放
 		delete particle_;
@@ -26,17 +23,18 @@ GameScene::~GameScene() {
 		delete effect;
 	}
 	effects_.clear();
+	ModelProject::StaticFinalize();
+	delete model_;
 }
 
 void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-
-	// 3Dモデルの生成
-	modelParticle_ = Model::CreateSphere(4, 4);
-
-	modelEffect_ = Model::CreateFromOBJ("efect", true);
+	worldTransform_.Initialize();
+	ModelProject::StaticInitialize();
+	texture_ = TextureManager::Load("uvChecker.png");
+	model_ = ModelProject::Create();
 
 	// カメラの初期化
 	camera_.Initialize();
@@ -45,55 +43,7 @@ void GameScene::Initialize() {
 	srand((unsigned)time(NULL));
 }
 
-void GameScene::Update() {
-
-	//---パーティクル----
-
-	//// 確率で発生
-	// if (rand() % 20 == 0) {
-
-	//	/*位置*/
-	//	Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
-
-	//	/*パーティクルの生成*/
-	//	ParticleBorn(position);
-	//}
-	// for (Particle* particle_ : particles_) {
-	//	// パーティクル
-	//	particle_->Update();
-	//}
-	//// 終了フラグのたったパーティクルを削除
-	// particles_.remove_if([](Particle* particle) {
-	//	if (particle->GetDeathFlag()) {
-	//		delete particle;
-	//		return true;
-	//	}
-	//	return false;
-	// });
-
-	// Effect
-	if (rand() % 10 == 0) {
-		/*位置*/
-		Vector3 position = {distrubution(randomEngine) * 30.0f, distrubution(randomEngine) * 20.0f, 0.0f};
-		/*移動量*/
-		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
-		Normalize(velocity);
-		/*色*/
-		Vector4 color{colorDistrubution(randomEngine), colorDistrubution(randomEngine), colorDistrubution(randomEngine), 1.0f};
-
-		EfectBorn(position, velocity, color);
-	}
-	for (Effect* effect : effects_) {
-		effect->Update();
-	}
-	effects_.remove_if([](Effect* effect) {
-		if (effect->GetDeathFlag()) {
-			delete effect;
-			return true;
-		}
-		return false;
-	});
-}
+void GameScene::Update() {}
 
 void GameScene::Draw() {
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -114,23 +64,17 @@ void GameScene::Draw() {
 
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
-	Model::PreDraw(commandList);
+	ModelProject::PreDraw(commandList);
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
+	model_->Draw(worldTransform_, camera_, texture_);
 
-	// for (Particle* particle_ : particles_) {
-	//	/*パーティクル*/
-	//	particle_->Draw(camera_);
-	// }
-	for (Effect* effect : effects_) {
-		effect->Draw(camera_);
-	}
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
+	ModelProject::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画
@@ -146,35 +90,3 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
-
-void GameScene::EfectBorn(KamataEngine::Vector3 position, Vector3 velocity, Vector4 color) {
-	for (int i = 0; i < 15; i++) {
-		Effect* effect = new Effect();
-		// エフェクトの初期化
-		Vector3 scale;
-		scale = {0.2f, scaleDistrubution(randomEngine), 1.0f};
-		Vector3 rotation;
-		rotation = {0.0f, 0.0f, rotationDistrubution(randomEngine)};
-
-		effect->Initialize(modelEffect_, scale, rotation, position, velocity, color);
-		effects_.push_back(effect);
-	}
-}
-
-// void GameScene::ParticleBorn(Vector3 position1) {
-//	for (int i = 0; i < 150; i++) {
-//
-//		/*生成*/
-//		Particle* particle_ = new Particle();
-//
-//		/*移動量*/
-//		Vector3 velocity = {distrubution(randomEngine), distrubution(randomEngine), 0.0f};
-//		Normalize(velocity);
-//		velocity *= distrubution(randomEngine);
-//		velocity *= 1.0f;
-//		/*初期化*/
-//		particle_->Initialize(modelParticle_, position1, velocity);
-//		// リストに追加
-//		particles_.push_back(particle_);
-//	}
-// }
