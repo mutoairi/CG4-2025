@@ -143,7 +143,7 @@ public: // 静的メンバ関数
 	/// <param name="divisionVertial">垂直方向（緯度）分割数</param>
 	/// <param name="divisionHorizontal">水平方向（経度）分割数</param>
 	/// <returns>生成されたモデル</returns>
-	static ModelProject* CreateSquare();
+	static ModelProject* CreateSquare(int count);
 
 	/// <summary>
 	/// 描画前処理

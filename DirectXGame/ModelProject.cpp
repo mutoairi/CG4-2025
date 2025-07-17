@@ -131,44 +131,51 @@ ModelProject* ModelProject::CreateSphere(uint32_t divisionVertial, uint32_t divi
 	return instance;
 }
 
-ModelProject* ModelProject::CreateSquare() {
+ModelProject* ModelProject::CreateSquare(int count) {
 	// メモリ確保
 	ModelProject* instance = new ModelProject;
 	std::vector<Mesh::VertexPosNormalUv> vertices;
 	std::vector<uint32_t> indices;
 
+	const float size = 1.0f;
 	// 頂点数
 	const uint32_t kNumVertices = 4;
 	// インデックス数
 	const uint32_t kNumindices = 6;
 
-	vertices.resize(kNumVertices);
-	indices.resize(kNumindices);
+	vertices.resize(count * kNumVertices);
+	indices.resize(count * kNumindices);
 
-	/*左下*/
-	vertices[0].pos = {-0.5f, -0.5f, 0.0f};
-	vertices[0].uv = {0.0f, 1.0f};
-	vertices[0].normal = {0.0f, 0.0f, 1.0f};
-	/*左上*/
-	vertices[1].pos = {-0.5f, 0.5f, 0.0f};
-	vertices[1].uv = {0.0f, 0.0f};
-	vertices[1].normal = {0.0f, 0.0f, 1.0f};
-	/*右下*/
-	vertices[2].pos = {0.5f, -0.5f, 0.0f};
-	vertices[2].uv = {1.0f, 1.0f};
-	vertices[2].normal = {0.0f, 0.0f, 1.0f};
-	/*右上*/
-	vertices[3].pos = {0.5f, 0.5f, 0.0f};
-	vertices[3].uv = {1.0f, 0.0f};
-	vertices[3].normal = {0.0f, 0.0f, 1.0f};
+	for (int i = 0; i < count; ++i) {
 
-	indices[0] = 0;
-	indices[1] = 1;
-	indices[2] = 2;
-	indices[3] = 1;
-	indices[4] = 3;
-	indices[5] = 2;
+		float oneSize = i * size;
+		int v = i * kNumVertices;
+		int in = i * kNumindices;
 
+		/*左下*/
+		vertices[0 + v].pos = {oneSize - 0.5f, -0.5f, 0.0f};
+		vertices[0 + v].uv = {0.0f, 1.0f};
+		vertices[0 + v].normal = {0.0f, 0.0f, -1.0f};
+		/*左上*/
+		vertices[1 + v].pos = {oneSize - 0.5f, 0.5f, 0.0f};
+		vertices[1 + v].uv = {0.0f, 0.0f};
+		vertices[1 + v].normal = {0.0f, 0.0f, -1.0f};
+		/*右下*/
+		vertices[2 + v].pos = {oneSize + 0.5f, -0.5f, 0.0f};
+		vertices[2 + v].uv = {1.0f, 1.0f};
+		vertices[2 + v].normal = {0.0f, 0.0f, 1.0f};
+		/*右上*/
+		vertices[3 + v].pos = {oneSize + 0.5f, 0.5f, 0.0f};
+		vertices[3 + v].uv = {1.0f, 0.0f};
+		vertices[3 + v].normal = {0.0f, 0.0f, 1.0f};
+
+		indices[0 + in] = v + 0;
+		indices[1 + in] = v + 1;
+		indices[2 + in] = v + 2;
+		indices[3 + in] = v + 1;
+		indices[4 + in] = v + 3;
+		indices[5 + in] = v + 2;
+	}
 	instance->InitializeFromVertices(vertices, indices);
 	return instance;
 }
