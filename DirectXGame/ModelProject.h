@@ -138,6 +138,14 @@ public: // 静的メンバ関数
 	static ModelProject* CreateSphere(uint32_t divisionVertial = 10, uint32_t divisionHorizontal = 10);
 
 	/// <summary>
+	/// 四角形モデル生成
+	/// </summary>
+	/// <param name="divisionVertial">垂直方向（緯度）分割数</param>
+	/// <param name="divisionHorizontal">水平方向（経度）分割数</param>
+	/// <returns>生成されたモデル</returns>
+	static ModelProject* CreateSquare();
+
+	/// <summary>
 	/// 描画前処理
 	/// </summary>
 	/// <param name="commandList">描画コマンドリスト</param>

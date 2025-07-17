@@ -34,7 +34,7 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	ModelProject::StaticInitialize();
 	texture_ = TextureManager::Load("uvChecker.png");
-	model_ = ModelProject::Create();
+	model_ = ModelProject::CreateSquare();
 
 	// カメラの初期化
 	camera_.Initialize();
