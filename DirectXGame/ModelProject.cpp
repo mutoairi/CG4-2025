@@ -180,6 +180,64 @@ ModelProject* ModelProject::CreateSquare(int count) {
 	return instance;
 }
 
+ModelProject* ModelProject::CreateRing(float num) {
+
+	float kRingDivide = num;
+	const float kOuterRadius = 1.0f;
+	const float kInnerRadius = 0.2f;
+	const float radianPerDivide = 2.0f * std::numbers::pi_v<float> / kRingDivide;
+	// メモリ確保
+	ModelProject* instance = new ModelProject;
+	std::vector<Mesh::VertexPosNormalUv> vertices;
+	std::vector<uint32_t> indices;
+	for (uint32_t index = 0; index < kRingDivide; ++index) {
+		float sin = std::sin(index * radianPerDivide);
+		float cos = std::cos(index * radianPerDivide);
+		float sinNext = std::sin((index + 1) * radianPerDivide);
+		float cosNext = std::cos((index + 1) * radianPerDivide);
+		float u = float(index) / kRingDivide;
+		float uNext = float(index + 1) / kRingDivide;
+		
+		Vector3 normal = {0.0f, 0.0f, -1.0f};
+
+		Mesh::VertexPosNormalUv v1 = {
+		    {-sin * kOuterRadius, cos * kOuterRadius, 0.0f},
+			normal,
+            {u, 0.0f}
+        };
+		Mesh::VertexPosNormalUv v2 = {
+		    {-sinNext * kOuterRadius, cosNext * kOuterRadius, 0.0f},
+			normal,
+            {uNext, 0.0f}
+        };
+		Mesh::VertexPosNormalUv v3 = {
+		    {-sin * kInnerRadius, cos * kInnerRadius, 0.0f},
+			normal,
+            {u, 1.0f}
+        };
+		Mesh::VertexPosNormalUv v4 = {
+		    {-sinNext * kInnerRadius, cosNext * kInnerRadius, 0.0f},
+			normal,
+            {uNext, 1.0f}
+        };
+		uint32_t base = static_cast<uint32_t>(vertices.size());
+
+		vertices.push_back(v1);
+		vertices.push_back(v2);
+		vertices.push_back(v3);
+		vertices.push_back(v4);
+
+		indices.push_back(base + 0);
+		indices.push_back(base + 2);
+		indices.push_back(base + 1);
+		indices.push_back(base + 2);
+		indices.push_back(base + 3);
+		indices.push_back(base + 1);
+	}
+	instance->InitializeFromVertices(vertices, indices);
+	return instance;
+}
+
 void ModelProject::PreDraw(ID3D12GraphicsCommandList* commandList) { ModelCommonProject::GetInstance()->PreDraw(commandList); }
 
 void ModelProject::PostDraw() { ModelCommonProject::GetInstance()->PostDraw(); }

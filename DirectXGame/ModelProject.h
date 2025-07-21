@@ -146,6 +146,10 @@ public: // 静的メンバ関数
 	static ModelProject* CreateSquare(int count);
 
 	/// <summary>
+	/// リングモデル生成
+	/// </summary>
+	static ModelProject* CreateRing(float num);
+	/// <summary>
 	/// 描画前処理
 	/// </summary>
 	/// <param name="commandList">描画コマンドリスト</param>
