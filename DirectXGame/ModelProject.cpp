@@ -163,11 +163,11 @@ ModelProject* ModelProject::CreateSquare(int count) {
 		/*右下*/
 		vertices[2 + v].pos = {oneSize + 0.5f, -0.5f, 0.0f};
 		vertices[2 + v].uv = {1.0f, 1.0f};
-		vertices[2 + v].normal = {0.0f, 0.0f, 1.0f};
+		vertices[2 + v].normal = {0.0f, 0.0f, -1.0f};
 		/*右上*/
 		vertices[3 + v].pos = {oneSize + 0.5f, 0.5f, 0.0f};
 		vertices[3 + v].uv = {1.0f, 0.0f};
-		vertices[3 + v].normal = {0.0f, 0.0f, 1.0f};
+		vertices[3 + v].normal = {0.0f, 0.0f, -1.0f};
 
 		indices[0 + in] = v + 0;
 		indices[1 + in] = v + 1;
