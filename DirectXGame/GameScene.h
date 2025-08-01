@@ -3,6 +3,7 @@
 #include "Effect.h"
 #include "Graph.h"
 #include "ModelProject.h"
+#include "NumberCount.h"
 #include "Particle.h"
 #include "Player.h"
 #include "Stage.h"
@@ -39,6 +40,9 @@ private:
 	Player* player_ = nullptr;
 	// Graph
 	Graph* graph_ = nullptr;
+
+	// number
+	NumberCount* number_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 	bool finished_ = false;
