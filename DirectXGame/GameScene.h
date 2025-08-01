@@ -3,7 +3,10 @@
 #include "Effect.h"
 #include "ModelProject.h"
 #include "Particle.h"
+#include "Stage.h"
+
 #include <KamataEngine.h>
+
 
 class GameScene {
 public:
@@ -28,6 +31,7 @@ private:
 	// エフェクト
 	std::list<Effect*> effects_;
 	KamataEngine::DebugCamera* debugCamera_ = nullptr;
+	Stage* stage_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 	bool finished_ = false;

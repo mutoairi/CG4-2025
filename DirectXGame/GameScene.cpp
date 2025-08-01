@@ -35,7 +35,8 @@ void GameScene::Initialize() {
 	ModelProject::StaticInitialize();
 	texture_ = TextureManager::Load("uvChecker.png");
 	model_ = ModelProject::CreateRing(32);
-
+	stage_ = new Stage();
+	stage_->Initialise();
 	// カメラの初期化
 	camera_.Initialize();
 
@@ -68,6 +69,7 @@ void GameScene::Update() {
 	} else {
 		camera_.TransferMatrix();
 	}
+	stage_->Update();
 }
 
 void GameScene::Draw() {
@@ -106,6 +108,7 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
+	stage_->Draw();
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
