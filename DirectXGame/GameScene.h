@@ -11,6 +11,7 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
+	bool IsFinished() { return finished_; }
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
@@ -26,4 +27,8 @@ private:
 	std::list<Particle*> particles_;
 	// エフェクト
 	std::list<Effect*> effects_;
+	KamataEngine::DebugCamera* debugCamera_ = nullptr;
+
+	bool isDebugCameraActive_ = false;
+	bool finished_ = false;
 };

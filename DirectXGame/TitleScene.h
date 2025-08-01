@@ -7,12 +7,19 @@ public:
 	void Initialize();
 	void Update();
 	void Draw();
+	bool IsFinished() const { return finished; }
 
 private:
+	KamataEngine::Input* input_ = nullptr;
+	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Sprite* titleSprite_ = nullptr;
+	KamataEngine::Sprite* backGroundSprite_ = nullptr;
 	KamataEngine::Sprite* startSprite_ = nullptr;
-	uint16_t titleTexture_ = 0u;
-	uint16_t startTexture_ = 0u;
-	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
+	uint32_t titleTexture_ = 0;
+	uint32_t startTexture_ = 0;
+	uint32_t backGroundTexture_ = 0;
+	bool finished = false;
 
+	float mainTime_ = 0.0f;
+	float startTime_ = 0.0f;
 };

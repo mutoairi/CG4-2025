@@ -39,11 +39,36 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_.Initialize();
 
+	debugCamera_ = new DebugCamera(1280, 720);
+
 	// 乱数の初期化
 	srand((unsigned)time(NULL));
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	if (input_->TriggerKey(DIK_ESCAPE)) {
+		finished_ = true;
+	}
+
+	if (input_->TriggerKey(DIK_D)) {
+		if (!isDebugCameraActive_) {
+			isDebugCameraActive_ = true;
+		} else {
+			isDebugCameraActive_ = false;
+		}
+	}
+
+	if (isDebugCameraActive_) {
+
+		debugCamera_->Update();
+		camera_.matView = debugCamera_->GetCamera().matView;
+		camera_.matProjection = debugCamera_->GetCamera().matProjection;
+
+		camera_.TransferMatrix();
+	} else {
+		camera_.TransferMatrix();
+	}
+}
 
 void GameScene::Draw() {
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -69,7 +94,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
-	model_->Draw(worldTransform_, camera_, texture_);
+	/// model_->Draw(worldTransform_, camera_, texture_);
 
 	/// </summary>
 
