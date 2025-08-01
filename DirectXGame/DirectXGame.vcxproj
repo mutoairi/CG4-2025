@@ -111,6 +111,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelProject.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ModelProject.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

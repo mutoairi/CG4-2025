@@ -25,6 +25,9 @@ GameScene::~GameScene() {
 	effects_.clear();
 	ModelProject::StaticFinalize();
 	delete model_;
+	delete stage_;
+	delete playerModel;
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -39,6 +42,10 @@ void GameScene::Initialize() {
 	stage_->Initialise();
 	// カメラの初期化
 	camera_.Initialize();
+
+	playerModel = ModelProject::CreateFromOBJ("player", true);
+	player_ = new Player();
+	player_->Initialize(playerModel, input_);
 
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -70,6 +77,7 @@ void GameScene::Update() {
 		camera_.TransferMatrix();
 	}
 	stage_->Update();
+	player_->Update();
 }
 
 void GameScene::Draw() {
@@ -80,7 +88,7 @@ void GameScene::Draw() {
 	Sprite::PreDraw(commandList);
 
 	/// <summary>
-	/// ここに背景スプライトの描画処理を追加できる
+	stage_->Draw();
 	/// </summary>
 
 	// スプライト描画後処理
@@ -97,7 +105,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	///
 	/// model_->Draw(worldTransform_, camera_, texture_);
-
+	player_->Draw(camera_);
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
@@ -108,7 +116,6 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	stage_->Draw();
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
