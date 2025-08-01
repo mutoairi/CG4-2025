@@ -1,6 +1,7 @@
 
 #pragma once
 #include "Effect.h"
+#include "Graph.h"
 #include "ModelProject.h"
 #include "Particle.h"
 #include "Player.h"
@@ -36,6 +37,8 @@ private:
 	Stage* stage_ = nullptr;
 	// プレイヤー
 	Player* player_ = nullptr;
+	// Graph
+	Graph* graph_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 	bool finished_ = false;

@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelProject.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -194,6 +195,7 @@
   <ItemGroup>
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="ModelProject.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Player.h" />

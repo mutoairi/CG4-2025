@@ -28,6 +28,7 @@ GameScene::~GameScene() {
 	delete stage_;
 	delete playerModel;
 	delete player_;
+	delete graph_;
 }
 
 void GameScene::Initialize() {
@@ -47,6 +48,8 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	player_->Initialize(playerModel, input_);
 
+	graph_ = new Graph();
+	graph_->initialize();
 	debugCamera_ = new DebugCamera(1280, 720);
 
 	// 乱数の初期化
@@ -78,6 +81,7 @@ void GameScene::Update() {
 	}
 	stage_->Update();
 	player_->Update();
+	graph_->Update();
 }
 
 void GameScene::Draw() {
@@ -116,6 +120,7 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
+	graph_->Draw();
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
