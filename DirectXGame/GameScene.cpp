@@ -48,6 +48,9 @@ void GameScene::Initialize() {
 	playerModel = ModelProject::CreateFromOBJ("player", true);
 	player_ = new Player();
 	player_->Initialize(playerModel, input_);
+	enemyModel = ModelProject::CreateFromOBJ("player", true);
+	enemy_ = new Enemy();
+	enemy_->Initialize(enemyModel);
 
 	graph_ = new Graph();
 	graph_->initialize();
@@ -85,6 +88,7 @@ void GameScene::Update() {
 	}
 	stage_->Update();
 	player_->Update();
+	enemy_->Update();
 	graph_->Update();
 	number_->Update();
 }
@@ -115,6 +119,7 @@ void GameScene::Draw() {
 	///
 	/// model_->Draw(worldTransform_, camera_, texture_);
 	player_->Draw(camera_);
+	enemy_->Draw(camera_);
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
@@ -126,7 +131,7 @@ void GameScene::Draw() {
 	Sprite::PreDraw(commandList);
 
 	graph_->Draw();
-	number_->Draw();
+	//number_->Draw();
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>

@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "TitleScene.h"
+#include"Fade.h"
 #include <KamataEngine.h>
 #include <Windows.h>
 
@@ -15,6 +16,8 @@ enum class Scene {
 Scene scene = Scene::kUnkown;
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
+Fade* fade = nullptr;
+bool isChanging = false;
 Input* input = nullptr;
 // シーン切り替え
 void ChangeScene() {
@@ -82,6 +85,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	titleScene->Initialize();
 	// 最初のシーンの初期化
 	scene = Scene::kTitle;
+	fade = new Fade();
+	fade->Initialize();
 	// メインループ
 	while (true) {
 
@@ -90,15 +95,31 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 		}
 
-		// シーンの切り替え
-		ChangeScene();
+		if (!isChanging) {
+			if (scene == Scene::kTitle && titleScene->IsFinished()) {
+				fade->StartFadeOut(0.03f);
+				isChanging = true;
+			} else if (scene == Scene::kGame && gameScene->IsFinished()) {
+				fade->StartFadeOut(0.03f);
+				isChanging = true;
+			}
+		} else {
+			// フェードアウト完了時に一度だけ切り替え
+			if (fade->IsFadeOutEnd()) {
+				ChangeScene();
+				fade->StartFadeIn(0.03f);
+				isChanging = false;
+			}
+		}
+
 		// 現在シーン更新
 		UpdateScene();
-
+		fade->Update();
 		// 描画開始
 		dxCommon->PreDraw();
 		// 現在シーンの描画
 		DrawScene();
+		fade->Draw();
 		// 描画終了
 		dxCommon->PostDraw();
 	}

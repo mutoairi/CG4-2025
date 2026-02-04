@@ -20,13 +20,12 @@ void Graph::initialize() {
 }
 
 void Graph::Update() {
+	if (Flag) {
 
-	if (max > 0) {
-		max -= 0.5f;
-	} else if (max <= 0) {
-		max = 300.0f;
+		if (max > 0) {
+			max -= 4.0f;
+		}
 	}
-
 	graphSprite2_->SetSize({max, 48.0f});
 }
 

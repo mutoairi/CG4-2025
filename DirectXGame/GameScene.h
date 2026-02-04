@@ -7,6 +7,7 @@
 #include "Particle.h"
 #include "Player.h"
 #include "Stage.h"
+#include"Enemy.h"
 
 #include <KamataEngine.h>
 
@@ -27,6 +28,7 @@ private:
 	int32_t texture_ = 0u;
 	KamataEngine::ModelProject* model_ = nullptr;
 	KamataEngine::ModelProject* playerModel = nullptr;
+	KamataEngine::ModelProject* enemyModel = nullptr;
 	// カメラ
 	KamataEngine::Camera camera_;
 	// パーティクル
@@ -38,6 +40,8 @@ private:
 	Stage* stage_ = nullptr;
 	// プレイヤー
 	Player* player_ = nullptr;
+	//エネミー
+	Enemy* enemy_ = nullptr;
 	// Graph
 	Graph* graph_ = nullptr;
 
