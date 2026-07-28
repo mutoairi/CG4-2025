@@ -8,8 +8,8 @@ Stage::~Stage() {
 }
 
 void Stage::Initialise() {
-	backGroundTexture_ = TextureManager::Load("sea.png");
-	backGround2Texture_ = TextureManager::Load("sea.png");
+	backGroundTexture_ = TextureManager::Load("sea.dds");
+	backGround2Texture_ = TextureManager::Load("sea.dds");
 	backGroundSprite_ = Sprite::Create(backGroundTexture_, {pos[0], 0.0f});
 	backGround2Sprite_ = Sprite::Create(backGround2Texture_, {pos[1], 0.0f});
 }

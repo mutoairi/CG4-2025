@@ -2,13 +2,13 @@
 using namespace KamataEngine;
 using namespace MathUtility;
 
-void EnemyBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity) {
+void EnemyBullet::Initialize(KamataEngine::ModelProject* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity) {
 	// NULLポインタチェック
 	// assert(model);
 
 	model_ = model;
 	// テクスチャ読み込み
-	texture_ = KamataEngine::TextureManager::Load("sample.png");
+	texture_ = KamataEngine::TextureManager::Load("sample.dds");
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;

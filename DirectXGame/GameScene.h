@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "Stage.h"
 #include"Enemy.h"
+#include"EnemyBullet.h"
+
 
 #include <KamataEngine.h>
 
@@ -18,6 +20,12 @@ public:
 	void Update();
 	void Draw();
 	bool IsFinished() { return finished_; }
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+	// 衝突判定と応答
+	void CheckAllCollision();
+	
+	
+	
 
 private:
 	KamataEngine::DirectXCommon* dxCommon_ = nullptr;
@@ -50,4 +58,14 @@ private:
 
 	bool isDebugCameraActive_ = false;
 	bool finished_ = false;
+	std::list<EnemyBullet*> bullets_;
+	//std::list<Enemy*> enemys_;
+
+
+
+	
+	
+	
+	/*bool waitFlag = false;
+	int32_t waitTimer;*/
 };

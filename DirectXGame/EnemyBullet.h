@@ -1,11 +1,12 @@
 #pragma once
 
 #include "KamataEngine.h"
+#include "ModelProject.h"
 
 class EnemyBullet {
 
 public:
-	void Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity);
+	void Initialize(KamataEngine::ModelProject* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity);
 	void Update();
 	void Draw(const KamataEngine::Camera& camera);
 	bool IsDead() const { return isDead_; }
@@ -16,7 +17,7 @@ public:
 
 private:
 	KamataEngine::Camera* viewProjection_ = nullptr;
-	KamataEngine::Model* model_ = nullptr;
+	KamataEngine::ModelProject* model_ = nullptr;
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Vector3 velocity_;
 	uint32_t texture_ = 0u;

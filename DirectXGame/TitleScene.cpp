@@ -13,9 +13,9 @@ void TitleScene::Initialize() {
 	input_ = Input::GetInstance();
 	worldTransform_.Initialize();
 
-	titleTexture_ = TextureManager::Load("title.png");
-	startTexture_ = TextureManager::Load("start.png");
-	backGroundTexture_ = TextureManager::Load("backGround.png");
+	titleTexture_ = TextureManager::Load("title.dds");
+	startTexture_ = TextureManager::Load("start.dds");
+	backGroundTexture_ = TextureManager::Load("backGround.dds");
 
 	titleSprite_ = Sprite::Create(titleTexture_, {300.0f, 200.0f});
 	startSprite_ = Sprite::Create(startTexture_, {20.0f, 70.0f});

@@ -12,6 +12,15 @@ public:
 
 	void Draw(KamataEngine::Camera& camera);
 	void Attack();
+	void Move();
+	void OnCollision();
+	// ワールド座標を取得
+	KamataEngine::Vector3 GetWorldPosition();
+	KamataEngine::Vector3 GetWorldRotate();
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+	float GetRadius() { return radius_; }
+	void SetParent(const KamataEngine::WorldTransform* parent);
+	float GetHp() { return hp; }
 
 private:
 	KamataEngine::ModelProject* model_ = nullptr;
@@ -23,4 +32,7 @@ private:
 	int32_t bulletCount_ = 3;
 	int32_t Timer_;
 	int32_t interval_ = 10;
+	float radius_ = 1.0f;
+	bool isDead_ = false;
+	float hp = 100;
 };

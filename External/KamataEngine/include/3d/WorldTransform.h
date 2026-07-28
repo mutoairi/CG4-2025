@@ -11,6 +11,7 @@ namespace KamataEngine {
 // 定数バッファ用データ構造体
 struct ConstBufferDataWorldTransform {
 	Matrix4x4 matWorld; // ローカル → ワールド変換行列
+	Matrix4x4 worldInverseTranspose; // 逆転置行列
 };
 
 /// <summary>
@@ -40,6 +41,7 @@ public:
 	/// 定数バッファ生成
 	/// </summary>
 	void CreateConstBuffer();
+	void UpdateMatrix();
 	/// <summary>
 	/// マッピングする
 	/// </summary>
@@ -53,9 +55,6 @@ public:
 	/// </summary>
 	/// <returns>定数バッファ</returns>
 	const Microsoft::WRL::ComPtr<ID3D12Resource>& GetConstBuffer() const { return constBuffer_; }
-
-	void UpdateMatrix();
-
 
 private:
 	// 定数バッファ

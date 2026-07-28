@@ -2,7 +2,7 @@
 #include<cassert>
 
 void Fade::Initialize() {
-	fadeTexture_ = KamataEngine::TextureManager::Load("white1x1.png"); // 白1x1画像を用意
+	fadeTexture_ = KamataEngine::TextureManager::Load("white1x1.dds"); // 白1x1画像を用意
 	fadeSprite_ = KamataEngine::Sprite::Create(fadeTexture_, {0, 0});
 
 	alpha_ = 1.0f; // 最初は真っ黒

@@ -7,8 +7,8 @@ Graph::~Graph() {
 
 void Graph::initialize() {
 
-	graphTextureHandle1_ = TextureManager::Load("red.png");
-	graphTextureHandle2_ = TextureManager::Load("green.png");
+	graphTextureHandle1_ = TextureManager::Load("red.dds");
+	graphTextureHandle2_ = TextureManager::Load("green.dds");
 
 	graphSprite1_ = Sprite::Create(graphTextureHandle1_, {100.0f, 100.0f});
 	graphSprite2_ = Sprite::Create(graphTextureHandle2_, {100.0f, 100.0f});
@@ -20,12 +20,7 @@ void Graph::initialize() {
 }
 
 void Graph::Update() {
-	if (Flag) {
-
-		if (max > 0) {
-			max -= 4.0f;
-		}
-	}
+	
 	graphSprite2_->SetSize({max, 48.0f});
 }
 

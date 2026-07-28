@@ -253,7 +253,7 @@ void ModelProject::InitializeFromFile(const std::string& modelname, bool smoothi
 			if (defaultMaterial_ == nullptr) {
 				// デフォルトマテリアルを生成
 				defaultMaterial_ = Material::Create();
-				defaultMaterial_->name_ = "no material";
+				defaultMaterial_->name = "no material";
 				defaultMaterial_->Update();
 			}
 			// デフォルトマテリアルをセット
@@ -291,7 +291,7 @@ void ModelProject::InitializeFromVertices(const std::vector<Mesh::VertexPosNorma
 
 	// デフォルトマテリアルを生成
 	defaultMaterial_ = Material::Create();
-	defaultMaterial_->name_ = "no material";
+	defaultMaterial_->name = "no material";
 	defaultMaterial_->Update();
 	// デフォルトマテリアルをセット
 	mesh->SetMaterial(defaultMaterial_.get());
@@ -557,7 +557,7 @@ void ModelProject::LoadMaterial(const std::string& directoryPath, const std::str
 			// 新しいマテリアルを生成
 			material = Material::Create();
 			// マテリアル名読み込み
-			line_stream >> material->name_;
+			line_stream >> material->name;
 		}
 		// 先頭文字列がKaならアンビエント色
 		if (key == "Ka") {
@@ -629,7 +629,7 @@ void ModelProject::LoadMaterial(const std::string& directoryPath, const std::str
 
 void ModelProject::AddMaterial(std::unique_ptr<Material>& material) {
 	// コンテナに登録
-	materials_.emplace(material->name_, std::move(material));
+	materials_.emplace(material->name, std::move(material));
 }
 
 void ModelProject::LoadTextures() {

@@ -17,6 +17,13 @@ public:
 	void ApproachInitialize();
 	// 発射間隔
 	static const int kFireInterval = 60;
+	void OnCollision();
+	// ワールド座標を取得
+	KamataEngine::Vector3 GetWorldPosition();
+	float GetRadius() { return radius_; }
+	float GetHp() { return hp; }
+	void SetPlayer(Player* player) { player_ = player; }
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
 private:
 	KamataEngine::ModelProject* model_ = nullptr;
@@ -28,7 +35,8 @@ private:
 	int32_t shotTimer_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
-	float radius_ = 1.0f;
+	float radius_ = 10.0f;
 	bool isDead = false;
 	GameScene* gameScene_ = nullptr;
+	float hp = 500;
 };

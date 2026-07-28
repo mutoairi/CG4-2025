@@ -8,7 +8,7 @@ void PlayerBullet::Initialize(KamataEngine::ModelProject* model, const KamataEng
 
 	model_ = model;
 	// テクスチャ読み込み
-	texture_ = TextureManager::Load("uvChecker.png");
+	texture_ = TextureManager::Load("uvChecker.dds");
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;

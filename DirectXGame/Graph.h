@@ -10,6 +10,7 @@ public:
 
 	void Draw();
 	void SetFlag(bool hit) { Flag = hit; }
+	void Sethp(float hp) { max = hp; }
 
 private:
 	uint32_t graphTextureHandle1_ = 0;
@@ -18,5 +19,5 @@ private:
 	KamataEngine::Sprite* graphSprite1_ = nullptr;
 	KamataEngine::Sprite* graphSprite2_ = nullptr;
 	bool Flag = false;
-	float max = 300.0f;
+	float max;
 };

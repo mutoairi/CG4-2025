@@ -7,7 +7,7 @@ NumberCount::~NumberCount() {
 }
 
 void NumberCount::Initialize() {
-	textureHandle_ = TextureManager::Load("number.png");
+	textureHandle_ = TextureManager::Load("number.dds");
 
 	for (int i = 0; i < 5; i++) {
 		sprite_[i] = Sprite::Create(textureHandle_, {100.0f + size.x * i, 5});
