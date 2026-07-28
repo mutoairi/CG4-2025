@@ -34,27 +34,27 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 
 	int32_t texture_ = 0u;
-	KamataEngine::ModelProject* model_ = nullptr;
-	KamataEngine::ModelProject* playerModel = nullptr;
-	KamataEngine::ModelProject* enemyModel = nullptr;
+	KamataEngine::ModelProject* model_=nullptr;
+	KamataEngine::ModelProject* playerModel=nullptr;
+	 KamataEngine::ModelProject* enemyModel_ = nullptr;
 	// カメラ
 	KamataEngine::Camera camera_;
 	// パーティクル
 	std::list<Particle*> particles_;
 	// エフェクト
 	std::list<Effect*> effects_;
-	KamataEngine::DebugCamera* debugCamera_ = nullptr;
+	std::unique_ptr<KamataEngine::DebugCamera> debugCamera_;
 	// ステージ
-	Stage* stage_ = nullptr;
+	std::unique_ptr<Stage> stage_;
 	// プレイヤー
-	Player* player_ = nullptr;
+	std::unique_ptr <Player> player_;
 	//エネミー
-	Enemy* enemy_ = nullptr;
+	std::unique_ptr<Enemy> enemy_;
 	// Graph
-	Graph* graph_ = nullptr;
+	std::unique_ptr<Graph> graph_;
 
 	// number
-	NumberCount* number_ = nullptr;
+	std::unique_ptr<NumberCount> number_;
 
 	bool isDebugCameraActive_ = false;
 	bool finished_ = false;

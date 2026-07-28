@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include <cassert>
 #include <random>
+#include <memory>
 
 using namespace KamataEngine;
 using namespace MathUtility;
@@ -25,11 +26,7 @@ GameScene::~GameScene() {
 	effects_.clear();
 	ModelProject::StaticFinalize();
 	delete model_;
-	delete stage_;
 	delete playerModel;
-	delete player_;
-	delete graph_;
-	delete number_;
 	for (EnemyBullet* bullet_ : bullets_) {
 		delete bullet_;
 	}
@@ -44,28 +41,27 @@ void GameScene::Initialize() {
 	
 	texture_ = TextureManager::Load("uvChecker.dds");
 	model_ = ModelProject::CreateRing(32);
-	stage_ = new Stage();
+	stage_ = std::make_unique<Stage>();
 	stage_->Initialise();
 	// カメラの初期化
 	camera_.Initialize();
 
 	playerModel = ModelProject::CreateFromOBJ("player", true);
-	player_ = new Player();
+	player_ = std::make_unique<Player>();
 	player_->Initialize(playerModel, input_);
-	enemyModel = ModelProject::CreateFromOBJ("player", true);
-	enemy_ = new Enemy();
-	enemy_->Initialize(enemyModel);
+	enemyModel_ = ModelProject::CreateFromOBJ("player", true);
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(enemyModel_);
 	enemy_->SetGameScene(this);
-	/*敵キャラに自キャラのアドレスを渡す*/
-	enemy_->SetPlayer(player_);
+	
 
-	graph_ = new Graph();
+	graph_ = std::make_unique<Graph>();
 	graph_->initialize();
 	graph_->Sethp(player_->GetHp());
 
-	number_ = new NumberCount();
+	number_ = std::make_unique<NumberCount>();
 	number_->Initialize();
-	debugCamera_ = new DebugCamera(1280, 720);
+	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
 	// 乱数の初期化
 	srand((unsigned)time(NULL));
